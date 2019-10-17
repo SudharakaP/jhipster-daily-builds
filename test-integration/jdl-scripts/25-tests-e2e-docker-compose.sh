@@ -23,13 +23,13 @@ launchCurlOrProtractor() {
         httpUrl="http://localhost:8081/management/health"
     fi
 
-    rep=$(curl -v "$httpUrl")
+    rep=$(curl -4 -v "$httpUrl")
     status=$?
     while [ "$status" -ne 0 ] && [ "$retryCount" -le "$maxRetry" ]; do
         echo "*** [$(date)] Application not reachable yet. Sleep and retry - retryCount =" $retryCount "/" $maxRetry
         retryCount=$((retryCount+1))
         sleep 10
-        rep=$(curl -v "$httpUrl")
+        rep=$(curl -4 -v "$httpUrl")
         status=$?
     done
 
@@ -41,7 +41,7 @@ launchCurlOrProtractor() {
     if [ "$JHI_PROTRACTOR" != 1 ]; then
         return 0
     fi
-    
+
     protractorResult=0
     for local_folder in $(ls "$JHI_FOLDER_APP"); do
         cd "$JHI_FOLDER_APP"/"$local_folder"
@@ -65,7 +65,7 @@ launchCurlOrProtractor() {
     if [ "$protractorResult" -ne 0 ]; then
         return 1
     fi
-    
+
     return 0
 }
 
