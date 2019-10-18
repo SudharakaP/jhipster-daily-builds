@@ -18,7 +18,7 @@ fi
 launchCurlOrProtractor() {
     retryCount=1
     maxRetry=30
-    httpUrl="http://0.0.0.0:8080"
+    httpUrl="http://localhost:8080"
     if [[ "$JHI_APP" == *"micro"* ]]; then
         httpUrl="http://localhost:8081/management/health"
     fi
